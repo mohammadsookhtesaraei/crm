@@ -25,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // get data from request.body = client
         const data = req.body.data;
+        console.log(data);
 
         // validation
         if (!data.name || !data.lastName || !data.email) {
