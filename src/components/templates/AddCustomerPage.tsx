@@ -18,6 +18,7 @@ export type FormDataType={
     postalCode: string;
     date: string;
     products: ProductType[];
+    _id:string
 };
 
 
@@ -33,7 +34,8 @@ const AddCustomerPage = () => {
     address: "",
     postalCode:"",
     date:"",
-    products:[]
+    products:[],
+    _id:""
     });
 
     const router=useRouter();
@@ -63,7 +65,8 @@ const AddCustomerPage = () => {
     address: "",
     postalCode:"",
     date:"",
-    products:[]
+    products:[],
+    _id:""
     });
 
     router.push("/")

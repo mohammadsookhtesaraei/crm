@@ -53,7 +53,7 @@ const customerSchema = new Schema<CustomerType>({
 
 });
 
-const Customer = models.Customer || model<CustomerType>("Customer", customerSchema);
+const Customer = models?.Customer || model<CustomerType>("Customer", customerSchema);
 
 
 export default Customer;
