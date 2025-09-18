@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         await connectDB();
 
     } catch (error) {
-        console.log(error);
+
         res.status(500).json({
             status: "Failed",
             message: "Error in connecting to DB"
@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // get data from request.body = client
         const data = req.body.data;
-        console.log(data);
+
 
         // validation
         if (!data.name || !data.lastName || !data.email) {
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
 
         } catch (error) {
-            console.log(error);
+
             res.status(500).json({
                 status: "Failed",
                 message: "Error in storing data in DB"

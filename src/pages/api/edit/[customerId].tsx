@@ -15,20 +15,31 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  if (req.method === "DELETE") {
+  if (req.method === "PATCH") {
     const id = req.query.customerId;
+    const data = req.body.data;
 
     try {
-      await Customer.deleteOne({ __id: id });
+      const customer = await Customer.findOne({ _id: id });
+      customer.name = data.name;
+      customer.lastName = data.name;
+      customer.email = data.name;
+      customer.phone = data.name;
+      customer.address = data.name;
+      customer.postalCode = data.name;
+      customer.date = data.date;
+      customer.products = data.products;
+      customer.updatedAt = Date.now();
+      customer.save();
       res.status(201).json({
         status: "success",
-        message: "Data deleted",
+        data: customer,
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
         res.status(500).json({
           status: "failed",
-          message: "Error in Deleting DataBase",
+          message: "Error in connecting to dataBase",
         });
       }
     }
