@@ -1,36 +1,33 @@
-import HomePage from '@/components/templates/HomePage';
-import Customer from '@/models/Customer'
-import connectDB from '@/utils/connectDB'
-import React from 'react'
+import React from 'react';
 
 import { FormDataType } from '@/components/templates/AddCustomerPage';
+import HomePage from '@/components/templates/HomePage';
+
+import Customer from '@/models/Customer';
+import connectDB from '@/utils/connectDB';
 
 interface IndexProps {
-  customers:FormDataType[]
+  customers: FormDataType[];
 }
 
-const Index = ({customers}:IndexProps) => {
- 
-  return (
-   <HomePage data={customers}/>
-  )
-}
+const Index = ({ customers }: IndexProps) => {
+  return <HomePage data={customers} />;
+};
 
-export default Index
+export default Index;
 
-
-export async function getServerSideProps(){
-  try{
-  await connectDB();
-  const customers=await Customer.find();
-  return {
-    props:{
-      customers:JSON.parse(JSON.stringify(customers))
-    }
-  }
-  }catch(error){
+export async function getServerSideProps() {
+  try {
+    await connectDB();
+    const customers = await Customer.find();
     return {
-      notFound:true
-    }
+      props: {
+        customers: JSON.parse(JSON.stringify(customers)),
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
   }
 }

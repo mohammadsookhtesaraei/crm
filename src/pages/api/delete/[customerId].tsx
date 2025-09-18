@@ -1,36 +1,38 @@
-import Customer from "@/models/Customer";
-import connectDB from "@/utils/connectDB";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
+import Customer from '@/models/Customer';
+import connectDB from '@/utils/connectDB';
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     await connectDB();
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({
-        status: "Failed",
-        message: "Error in connecting to DB",
-      });
-      return;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(err.message);
     }
+    res
+      .status(500)
+      .json({ status: 'failed', message: 'Error in connecting to database' });
+    return;
   }
 
-  if (req.method === "DELETE") {
+  if (req.method === 'DELETE') {
     const id = req.query.customerId;
 
     try {
-      await Customer.deleteOne({ __id: id });
-      res.status(201).json({
-        status: "success",
-        message: "Data deleted",
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(500).json({
-          status: "failed",
-          message: "Error in Deleting DataBase",
-        });
+      await Customer.deleteOne({ _id: id });
+      res.status(200).json({ status: 'success', message: 'Data deleted' });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(err.message);
       }
+      res.status(500).json({
+        status: 'failed',
+        message: 'Error in deleting data from database',
+      });
     }
   }
 }

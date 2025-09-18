@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <header className="header">
         <h2>project crm</h2>
-        <Link href={"/add-customer"}>Add Customer</Link>
+        <Link href={'/add-customer'}>Add Customer</Link>
       </header>
       <main className="main">{children}</main>
 

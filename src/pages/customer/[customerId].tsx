@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import CustomerEditPage from '@/components/templates/CustomerEditPage';
+import CustomDetailsPage from '@/components/templates/CustomerDetailsPage';
 
 function Index() {
   const [data, setData] = useState(null);
@@ -21,7 +21,7 @@ function Index() {
     }
   }, [isReady]);
 
-  if (data) return <CustomerEditPage data={data} id={customerId} />;
+  if (data) return <CustomDetailsPage data={data} />;
 }
 
 export default Index;

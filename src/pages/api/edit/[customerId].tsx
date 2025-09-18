@@ -1,47 +1,50 @@
-import Customer from "@/models/Customer";
-import connectDB from "@/utils/connectDB";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
+import Customer from '@/models/Customer';
+import connectDB from '@/utils/connectDB';
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     await connectDB();
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({
-        status: "Failed",
-        message: "Error in connecting to DB",
-      });
-      return;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(err.message);
     }
+    res
+      .status(500)
+      .json({ status: 'failed', message: 'Error in connecting to database' });
+    return;
   }
 
-  if (req.method === "PATCH") {
+  if (req.method === 'PATCH') {
     const id = req.query.customerId;
     const data = req.body.data;
 
     try {
       const customer = await Customer.findOne({ _id: id });
       customer.name = data.name;
-      customer.lastName = data.name;
-      customer.email = data.name;
-      customer.phone = data.name;
-      customer.address = data.name;
-      customer.postalCode = data.name;
+      customer.lastName = data.lastName;
+      customer.email = data.email;
+      customer.phone = data.phone;
+      customer.address = data.address;
+      customer.postalCode = data.postalCode;
       customer.date = data.date;
       customer.products = data.products;
       customer.updatedAt = Date.now();
       customer.save();
-      res.status(201).json({
-        status: "success",
-        data: customer,
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(500).json({
-          status: "failed",
-          message: "Error in connecting to dataBase",
-        });
+
+      res.status(200).json({ status: 'success', data: customer });
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
       }
+      res.status(500).json({
+        status: 'failed',
+        message: 'Error in retrieving data from database',
+      });
     }
   }
 }

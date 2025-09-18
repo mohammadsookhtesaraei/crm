@@ -1,4 +1,4 @@
-import AddCustomerPage from "@/components/templates/AddCustomerPage";
+import AddCustomerPage from '@/components/templates/AddCustomerPage';
 
 const Index = () => {
   return <AddCustomerPage />;
